@@ -81,6 +81,7 @@ dependencies = [
  "huntsman",
  "huntsman-http",
  "sql",
+ "sql-migrations",
  "sqlite",
 ]
 
@@ -93,6 +94,14 @@ source = "git+https://github.com/shipsimfan/lib-linux#4e8f48d29453a6a63ee1a3456a
 name = "sql"
 version = "0.1.0"
 source = "git+https://github.com/shipsimfan/lib-sql#39697ef09d5c8081d6c7d1d5f42117111a45ce33"
+
+[[package]]
+name = "sql-migrations"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/lib-sql-migrations#8dd867dc48b9c1f60ce49e99614a5b2df5e68c10"
+dependencies = [
+ "sql",
+]
 
 [[package]]
 name = "sqlite"

@@ -14,3 +14,4 @@ huntsman-http.git = "https://github.com/shipsimfan/huntsman"
 
 sql.git = "https://github.com/shipsimfan/lib-sql"
 sqlite.git = "https://github.com/shipsimfan/lib-sql"
+sql-migrations.git = "https://github.com/shipsimfan/lib-sql-migrations"
