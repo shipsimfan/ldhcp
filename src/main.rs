@@ -1,4 +1,5 @@
 use init_error::InitializationError;
+use oak::info;
 
 mod args;
 mod init_error;
@@ -18,6 +19,19 @@ fn run() -> Result<(), InitializationError> {
     };
 
     // Create logger
+    let log_controller = oak::LogController::new(
+        "ldhcp",
+        options.min_log_level,
+        options.max_log_level,
+        options.log_filter_type,
+        options.log_filter,
+        oak::StdLogOutput::convert_vec(options.log_outputs)
+            .map_err(InitializationError::OpenLogOutputFailed)?,
+    )
+    .map_err(InitializationError::CreateLogControllerFailed)?;
+
+    let logger = log_controller.create_logger("init");
+    info!(logger, "Log controller created");
 
     // Open the database and apply migrations
 
