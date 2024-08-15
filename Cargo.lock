@@ -3,6 +3,19 @@
 version = 3
 
 [[package]]
+name = "argparse"
+version = "3.0.0"
+source = "git+https://github.com/shipsimfan/lib-argparse#a66f7717947a35dd99da02a42df060fc27269f5c"
+dependencies = [
+ "macros 3.0.0",
+]
+
+[[package]]
+name = "base"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/lib-proc-macro-util#466265c30de3e57aa0365bac5e4de4e54bee56c3"
+
+[[package]]
 name = "executor"
 version = "0.1.0"
 source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
@@ -78,8 +91,10 @@ dependencies = [
 name = "ldhcp"
 version = "0.1.0"
 dependencies = [
+ "argparse",
  "huntsman",
  "huntsman-http",
+ "oak",
  "sql",
  "sql-migrations",
  "sqlite",
@@ -89,6 +104,36 @@ dependencies = [
 name = "linux"
 version = "0.1.0"
 source = "git+https://github.com/shipsimfan/lib-linux#4e8f48d29453a6a63ee1a3456a799865caff114b"
+
+[[package]]
+name = "macros"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/lib-proc-macro-util#466265c30de3e57aa0365bac5e4de4e54bee56c3"
+dependencies = [
+ "base",
+]
+
+[[package]]
+name = "macros"
+version = "3.0.0"
+source = "git+https://github.com/shipsimfan/lib-argparse#a66f7717947a35dd99da02a42df060fc27269f5c"
+dependencies = [
+ "proc-macro-util",
+]
+
+[[package]]
+name = "oak"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/oak#141b94260eb65720a978278507819ac5fa9dfea9"
+
+[[package]]
+name = "proc-macro-util"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/lib-proc-macro-util#466265c30de3e57aa0365bac5e4de4e54bee56c3"
+dependencies = [
+ "base",
+ "macros 0.1.0",
+]
 
 [[package]]
 name = "sql"
