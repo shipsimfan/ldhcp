@@ -1,31 +1,46 @@
-use crate::{args::LDHCPOptions, LDHCP};
-use oak::info;
+use crate::{Database, LDHCPOptions, LDHCPD};
+use oak::{fatal, LogController};
+use std::sync::Arc;
 
+mod early;
 mod error;
 
 pub use error::CreationError;
 
-impl LDHCP {
-    /// Creates a new [`LDHCP`] server from `options`
-    pub fn new(options: LDHCPOptions) -> Result<Self, CreationError> {
-        // Create logger
-        let log_controller = oak::LogController::new(
-            "ldhcpd",
-            options.min_log_level,
-            options.max_log_level,
-            options.log_filter_type,
-            options.log_filter,
-            oak::StdLogOutput::convert_vec(options.log_outputs)?,
-        )
-        .map_err(CreationError::CreateLogControllerFailed)?;
+/// Initializes the server
+pub fn init() -> Result<Option<LDHCPD>, ()> {
+    // Parse arguments
+    let (options, log_controller) =
+        match early::early_init().map_err(|error| eprintln!("Error: {}", error))? {
+            Some(result) => result,
+            None => return Ok(None),
+        };
 
-        let logger = log_controller.create_logger("init");
-        info!(logger, "Log controller created");
+    // Run the server
+    let logger = log_controller.create_logger("init");
+    LDHCPD::new(options, log_controller)
+        .map(|ldhcpd| Some(ldhcpd))
+        .map_err(|error| fatal!(logger, "Unable to start the server - {}", error))
+}
 
+impl LDHCPD {
+    /// Creates a new [`LDHCPD`] server from `options`
+    pub(self) fn new(
+        options: LDHCPOptions,
+        log_controller: Arc<LogController>,
+    ) -> Result<Self, CreationError> {
         // Open the database and apply migrations
+        let database = Database::open(
+            &log_controller,
+            &options.database_path,
+            &options.migration_path,
+        )?;
 
         // Start DHCP server on another thread
 
-        Ok(LDHCP { log_controller })
+        Ok(LDHCPD {
+            log_controller,
+            database,
+        })
     }
 }

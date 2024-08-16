@@ -1,3 +1,5 @@
+use std::path::PathBuf;
+
 /// An error that can occur during initialization
 #[derive(Debug)]
 pub enum CreationError {
@@ -9,6 +11,12 @@ pub enum CreationError {
 
     /// Unable to create the log controller
     CreateLogControllerFailed(std::io::Error),
+
+    /// Unable to open the database
+    OpenDatabaseFailed(sqlite::SQLiteError, PathBuf),
+
+    /// Unable to migrate the database
+    MigrateDatabaseFailed(sql_migrations::MigrationError, PathBuf),
 }
 
 impl std::error::Error for CreationError {}
@@ -23,6 +31,18 @@ impl std::fmt::Display for CreationError {
                 write!(f, "unable to open a log output - {}", error)
             }
             CreationError::CreateLogControllerFailed(error) => error.fmt(f),
+            CreationError::OpenDatabaseFailed(error, path) => write!(
+                f,
+                "unable to open database \"{}\" - {}",
+                path.display(),
+                error
+            ),
+            CreationError::MigrateDatabaseFailed(error, path) => write!(
+                f,
+                "unable to migrate database \"{}\" - {}",
+                path.display(),
+                error
+            ),
         }
     }
 }

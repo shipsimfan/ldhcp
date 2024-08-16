@@ -1,33 +1,32 @@
+use args::LDHCPOptions;
+use database::Database;
 use new::CreationError;
-use oak::{info, LogController};
+use oak::LogController;
 use std::sync::Arc;
 
 mod args;
+mod database;
 mod new;
 
 /// The LDHCP Server
-struct LDHCP {
+struct LDHCPD {
+    /// The log controller for the server
     log_controller: Arc<LogController>,
+
+    /// The database storing information for the server
+    database: Database,
 }
 
 fn main() {
-    if let Err(error) = run() {
-        eprintln!("Error: {}", error);
+    if let Err(_) = run() {
         std::process::exit(1);
     }
 }
 
-fn run() -> Result<(), CreationError> {
-    // Parse arguments
-    let options = match args::parse()? {
-        Some(options) => options,
-        None => return Ok(()),
-    };
-
+fn run() -> Result<(), ()> {
     // Create the server object
-    let ldhcp = LDHCP::new(options)?;
+    let ldhcp = new::init()?;
 
     // Start the huntsman server on this thread
-
     Ok(())
 }

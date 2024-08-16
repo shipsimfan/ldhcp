@@ -3,6 +3,8 @@ default-members = ["ldhcpd"]
 
 members = ["ldhcpd"]
 
+resolver = "2"
+
 [workspace.package]
 authors = ["Lance Hart <me@lancehart.ca>"]
 edition = "2021"
