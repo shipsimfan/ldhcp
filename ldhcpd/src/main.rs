@@ -27,6 +27,9 @@ struct LDHCPD {
     /// The logger for requests
     request_logger: Logger,
 
+    /// The logger for updates to the system
+    updates_logger: Logger,
+
     /// Should request headers be logged?
     log_headers: bool,
 

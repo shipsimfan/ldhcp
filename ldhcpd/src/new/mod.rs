@@ -41,9 +41,10 @@ impl LDHCPD {
 
         // Start DHCP server on another thread
 
-        // Create huntsman loggers
+        // Create loggers
         let connection_logger = log_controller.create_logger("connections");
         let request_logger = log_controller.create_logger("requests");
+        let updates_logger = log_controller.create_logger("updates");
 
         Ok(LDHCPD {
             log_controller,
@@ -51,6 +52,7 @@ impl LDHCPD {
             init_logger: init_logger.clone(),
             connection_logger,
             request_logger,
+            updates_logger,
             log_bodies: options.log_bodies,
             log_headers: options.log_headers,
             log_reponses: options.log_reponses,

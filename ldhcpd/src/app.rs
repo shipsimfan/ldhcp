@@ -1,5 +1,5 @@
 use crate::{routes, LDHCPD};
-use huntsman_http::{HTTPClientAddress, HTTPStatus, HTTP};
+use huntsman_http::{HTTPClientAddress, HTTPPath, HTTPStatus, HTTP};
 use oak::{error, info};
 
 impl huntsman::App for LDHCPD {
@@ -37,7 +37,8 @@ impl huntsman::App for LDHCPD {
         client: &'a mut Self::Client,
         request: <Self::Protocol as huntsman::Protocol>::Request<'b>,
     ) -> <Self::Protocol as huntsman::Protocol>::Response<'a> {
-        let response = routes::route();
+        let path = HTTPPath::parse(request.target());
+        let response = routes::route(self, &request, path, 0);
 
         info!(
             self.request_logger,

@@ -16,6 +16,14 @@ version = "0.1.0"
 source = "git+https://github.com/shipsimfan/lib-proc-macro-util#466265c30de3e57aa0365bac5e4de4e54bee56c3"
 
 [[package]]
+name = "data-format"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/lib-data-format#e240ff5f7e2adae43840ae00a94da5580fc26453"
+dependencies = [
+ "macros 0.1.0 (git+https://github.com/shipsimfan/lib-data-format)",
+]
+
+[[package]]
 name = "executor"
 version = "0.1.0"
 source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
@@ -79,6 +87,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "json"
+version = "2.0.0"
+source = "git+https://github.com/shipsimfan/lib-json?branch=lib-data-format#23c5fdf28a477739dab3bb1dffe375fa26bdb195"
+dependencies = [
+ "data-format",
+]
+
+[[package]]
 name = "lasync"
 version = "0.1.0"
 source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
@@ -92,8 +108,11 @@ name = "ldhcpd"
 version = "0.1.0"
 dependencies = [
  "argparse",
+ "data-format",
  "huntsman",
  "huntsman-http",
+ "json",
+ "net-utils",
  "oak",
  "sql",
  "sql-migrations",
@@ -104,6 +123,14 @@ dependencies = [
 name = "linux"
 version = "0.1.0"
 source = "git+https://github.com/shipsimfan/lib-linux#dd77885b4300058bbf465d8d5cf78b8e032dab9b"
+
+[[package]]
+name = "macros"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/lib-data-format#e240ff5f7e2adae43840ae00a94da5580fc26453"
+dependencies = [
+ "proc-macro-util",
+]
 
 [[package]]
 name = "macros"
@@ -122,6 +149,11 @@ dependencies = [
 ]
 
 [[package]]
+name = "net-utils"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/lib-net-utils#9230abc09298abe7a2cbfe0d36307d8f20c52a30"
+
+[[package]]
 name = "oak"
 version = "0.1.0"
 source = "git+https://github.com/shipsimfan/oak#82fb82df78e87350fe0c83d4d6f5274b3dfdf8b3"
@@ -135,7 +167,7 @@ version = "0.1.0"
 source = "git+https://github.com/shipsimfan/lib-proc-macro-util#466265c30de3e57aa0365bac5e4de4e54bee56c3"
 dependencies = [
  "base",
- "macros 0.1.0",
+ "macros 0.1.0 (git+https://github.com/shipsimfan/lib-proc-macro-util)",
 ]
 
 [[package]]
