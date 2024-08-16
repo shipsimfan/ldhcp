@@ -1,6 +1,6 @@
 /// An error that can occur during initialization
 #[derive(Debug)]
-pub enum InitializationError {
+pub enum CreationError {
     /// Parsing the arguments failed
     ArgumentParseFailed(argparse::Error<'static>),
 
@@ -11,25 +11,25 @@ pub enum InitializationError {
     CreateLogControllerFailed(std::io::Error),
 }
 
-impl std::error::Error for InitializationError {}
+impl std::error::Error for CreationError {}
 
-impl std::fmt::Display for InitializationError {
+impl std::fmt::Display for CreationError {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match self {
-            InitializationError::ArgumentParseFailed(error) => {
+            CreationError::ArgumentParseFailed(error) => {
                 write!(f, "invalid arguments - {}", error)
             }
-            InitializationError::OpenLogOutputFailed(error) => {
+            CreationError::OpenLogOutputFailed(error) => {
                 write!(f, "unable to open a log output - {}", error)
             }
-            InitializationError::CreateLogControllerFailed(error) => {
+            CreationError::CreateLogControllerFailed(error) => {
                 write!(f, "unable to create the log controller - {}", error)
             }
         }
     }
 }
-impl From<argparse::Error<'static>> for InitializationError {
+impl From<argparse::Error<'static>> for CreationError {
     fn from(error: argparse::Error<'static>) -> Self {
-        InitializationError::ArgumentParseFailed(error)
+        CreationError::ArgumentParseFailed(error)
     }
 }

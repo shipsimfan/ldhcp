@@ -1,8 +1,14 @@
-use init_error::InitializationError;
-use oak::info;
+use new::CreationError;
+use oak::{info, LogController};
+use std::sync::Arc;
 
 mod args;
-mod init_error;
+mod new;
+
+/// The LDHCP Server
+struct LDHCP {
+    log_controller: Arc<LogController>,
+}
 
 fn main() {
     if let Err(error) = run() {
@@ -11,31 +17,15 @@ fn main() {
     }
 }
 
-fn run() -> Result<(), InitializationError> {
+fn run() -> Result<(), CreationError> {
     // Parse arguments
     let options = match args::parse()? {
         Some(options) => options,
         None => return Ok(()),
     };
 
-    // Create logger
-    let log_controller = oak::LogController::new(
-        "ldhcp",
-        options.min_log_level,
-        options.max_log_level,
-        options.log_filter_type,
-        options.log_filter,
-        oak::StdLogOutput::convert_vec(options.log_outputs)
-            .map_err(InitializationError::OpenLogOutputFailed)?,
-    )
-    .map_err(InitializationError::CreateLogControllerFailed)?;
-
-    let logger = log_controller.create_logger("init");
-    info!(logger, "Log controller created");
-
-    // Open the database and apply migrations
-
-    // Start DHCP server on another thread
+    // Create the server object
+    let ldhcp = LDHCP::new(options)?;
 
     // Start the huntsman server on this thread
 
