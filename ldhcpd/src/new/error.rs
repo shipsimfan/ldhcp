@@ -5,7 +5,7 @@ pub enum CreationError {
     ArgumentParseFailed(argparse::Error<'static>),
 
     /// Unable to open a log output
-    OpenLogOutputFailed(std::io::Error),
+    OpenLogOutputFailed(oak::OpenStdLogOutputError),
 
     /// Unable to create the log controller
     CreateLogControllerFailed(std::io::Error),
@@ -22,14 +22,18 @@ impl std::fmt::Display for CreationError {
             CreationError::OpenLogOutputFailed(error) => {
                 write!(f, "unable to open a log output - {}", error)
             }
-            CreationError::CreateLogControllerFailed(error) => {
-                write!(f, "unable to create the log controller - {}", error)
-            }
+            CreationError::CreateLogControllerFailed(error) => error.fmt(f),
         }
     }
 }
 impl From<argparse::Error<'static>> for CreationError {
     fn from(error: argparse::Error<'static>) -> Self {
         CreationError::ArgumentParseFailed(error)
+    }
+}
+
+impl From<oak::OpenStdLogOutputError> for CreationError {
+    fn from(error: oak::OpenStdLogOutputError) -> Self {
+        CreationError::OpenLogOutputFailed(error)
     }
 }

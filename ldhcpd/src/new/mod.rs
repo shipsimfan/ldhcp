@@ -10,13 +10,12 @@ impl LDHCP {
     pub fn new(options: LDHCPOptions) -> Result<Self, CreationError> {
         // Create logger
         let log_controller = oak::LogController::new(
-            "ldhcp",
+            "ldhcpd",
             options.min_log_level,
             options.max_log_level,
             options.log_filter_type,
             options.log_filter,
-            oak::StdLogOutput::convert_vec(options.log_outputs)
-                .map_err(CreationError::OpenLogOutputFailed)?,
+            oak::StdLogOutput::convert_vec(options.log_outputs)?,
         )
         .map_err(CreationError::CreateLogControllerFailed)?;
 

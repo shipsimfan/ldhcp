@@ -48,7 +48,7 @@ pub struct LDHCPOptions {
 
 parser! {
     PARSER -> LDHCPOptions
-    "LDHCP"
+    "LDHCPD"
     "Lance Dynamic Host Configuration Protocol Server",
     [
         // Database flags

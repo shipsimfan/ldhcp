@@ -64,7 +64,7 @@ dependencies = [
 [[package]]
 name = "huntsman"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/huntsman#efe7cb851a94219ea1fdfba3f58ba34519baa537"
+source = "git+https://github.com/shipsimfan/huntsman#98d66a4ab817dc7c7eb5484d03e1cfe87c0bf61f"
 dependencies = [
  "lasync",
 ]
@@ -72,7 +72,7 @@ dependencies = [
 [[package]]
 name = "huntsman-http"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/huntsman#efe7cb851a94219ea1fdfba3f58ba34519baa537"
+source = "git+https://github.com/shipsimfan/huntsman#98d66a4ab817dc7c7eb5484d03e1cfe87c0bf61f"
 dependencies = [
  "huntsman",
  "lasync",
@@ -88,7 +88,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "ldhcp"
+name = "ldhcpd"
 version = "0.1.0"
 dependencies = [
  "argparse",
@@ -103,7 +103,7 @@ dependencies = [
 [[package]]
 name = "linux"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-linux#4e8f48d29453a6a63ee1a3456a799865caff114b"
+source = "git+https://github.com/shipsimfan/lib-linux#dd77885b4300058bbf465d8d5cf78b8e032dab9b"
 
 [[package]]
 name = "macros"
@@ -124,7 +124,7 @@ dependencies = [
 [[package]]
 name = "oak"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/oak#141b94260eb65720a978278507819ac5fa9dfea9"
+source = "git+https://github.com/shipsimfan/oak#ee4438d350f1aef4f6d9e503a41e6df76cb3b54e"
 
 [[package]]
 name = "proc-macro-util"
@@ -138,12 +138,12 @@ dependencies = [
 [[package]]
 name = "sql"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-sql#39697ef09d5c8081d6c7d1d5f42117111a45ce33"
+source = "git+https://github.com/shipsimfan/lib-sql#4390cfb1f8af033dd0d3d8e6d7ae6f4c6daea338"
 
 [[package]]
 name = "sql-migrations"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-sql-migrations#8dd867dc48b9c1f60ce49e99614a5b2df5e68c10"
+source = "git+https://github.com/shipsimfan/lib-sql-migrations#4de2ee72e61bd1cd03d1ebe9d811fece67a62de0"
 dependencies = [
  "sql",
 ]
@@ -151,7 +151,7 @@ dependencies = [
 [[package]]
 name = "sqlite"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-sql#39697ef09d5c8081d6c7d1d5f42117111a45ce33"
+source = "git+https://github.com/shipsimfan/lib-sql#4390cfb1f8af033dd0d3d8e6d7ae6f4c6daea338"
 dependencies = [
  "sql",
  "sqlite3",
@@ -160,7 +160,7 @@ dependencies = [
 [[package]]
 name = "sqlite3"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-sqlite3#1ed9439224a35825e58f7c3850ca24f3d27529db"
+source = "git+https://github.com/shipsimfan/lib-sqlite3#cbdc992bd37504f7b07ea1f41296636c2d247ca1"
 
 [[package]]
 name = "uring"

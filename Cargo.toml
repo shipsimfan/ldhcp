@@ -1,20 +1,11 @@
-[package]
-name = "ldhcp"
-version = "0.1.0"
+[workspace]
+default-members = ["ldhcpd"]
+
+members = ["ldhcpd"]
+
+[workspace.package]
 authors = ["Lance Hart <me@lancehart.ca>"]
 edition = "2021"
-description = "DHCP Server built on Huntsman and SQLite3"
 repository = "https://github.com/shipsimfan/ldhcp"
 license = "GPL-3.0-or-later"
 publish = false
-
-[dependencies]
-huntsman.git = "https://github.com/shipsimfan/huntsman"
-huntsman-http.git = "https://github.com/shipsimfan/huntsman"
-
-sql.git = "https://github.com/shipsimfan/lib-sql"
-sqlite.git = "https://github.com/shipsimfan/lib-sql"
-sql-migrations.git = "https://github.com/shipsimfan/lib-sql-migrations"
-
-argparse.git = "https://github.com/shipsimfan/lib-argparse"
-oak.git = "https://github.com/shipsimfan/oak"
