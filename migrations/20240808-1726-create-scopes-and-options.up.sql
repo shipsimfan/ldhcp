@@ -12,12 +12,11 @@ INSERT INTO scope_type (name) VALUES ("Reservation");
 CREATE TABLE scope (
     id INTEGER NOT NULL PRIMARY KEY,
     type INTEGER NOT NULL,
-    name VARCHAR(64) NOT NULL,
 
     FOREIGN KEY (type) REFERENCES scope_type(id) ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
-INSERT INTO scope (type, name) VALUES (1, "Global");
+INSERT INTO scope (type) VALUES (1);
 
 
 CREATE TABLE option (
