@@ -1,13 +1,9 @@
-use std::num::NonZeroUsize;
-
 use crate::{
-    database::{
-        get_many_reservations, OrderBy, ReservationField, ReservationFields, ReservationPageSize,
-        DEFAULT_RESERVATION_PAGE_SIZE,
-    },
+    database::{get_many_reservations, ReservationFields, DEFAULT_RESERVATION_PAGE_SIZE},
     LDHCPD,
 };
-use huntsman_http::{HTTPQueryParam, HTTPResponse, HTTPStatus};
+use huntsman_http::{FromHTTPQueryParam, HTTPQueryParam, HTTPResponse, HTTPStatus};
+use std::borrow::Cow;
 
 /// Gets a set of reservations based on the request
 pub(super) fn get<'a>(app: &LDHCPD, query_params: &[HTTPQueryParam]) -> HTTPResponse<'a> {
@@ -16,41 +12,42 @@ pub(super) fn get<'a>(app: &LDHCPD, query_params: &[HTTPQueryParam]) -> HTTPResp
     let mut order_by = None;
     let mut fields = None;
     for query_param in query_params {
-        let value = match std::str::from_utf8(query_param.value()) {
-            Ok(value) => value,
-            Err(_) => return HTTPStatus::BadRequest.into(),
-        };
-
-        match query_param.key() {
-            b"page" => {
-                if page.is_some() {
-                    return HTTPStatus::BadRequest.into();
-                }
-
-                match usize::from_str_radix(value, 10) {
-                    Ok(new_page) => page = Some(new_page),
-                    Err(_) => return HTTPStatus::BadRequest.into(),
-                }
-            }
-            b"page_size" => {
-                if page_size.is_some() {
-                    return HTTPStatus::BadRequest.into();
-                }
-
-                match usize::from_str_radix(value, 10) {
-                    Ok(new_page_size) => match NonZeroUsize::new(new_page_size) {
-                        Some(new_page_size) => match ReservationPageSize::new(new_page_size) {
-                            Some(new_page_size) => page_size = Some(new_page_size),
-                            None => return HTTPStatus::BadRequest.into(),
-                        },
-                        None => return HTTPStatus::BadRequest.into(),
-                    },
-                    Err(_) => return HTTPStatus::BadRequest.into(),
-                }
-            }
+        match match query_param.key() {
+            b"page" => match page.is_some() {
+                true => Err(Cow::Borrowed("Repeated field \"page\"")),
+                false => usize::from_query_param(query_param.value())
+                    .map(|new_page| {
+                        page = Some(new_page);
+                    })
+                    .map_err(|error| error.to_string().into()),
+            },
+            b"page_size" => match page_size.is_some() {
+                true => Err("Repeated field \"page_size\"".into()),
+                false => todo!("NonZeroUsize::from_query_param"),
+            },
             b"order_by" => todo!(),
-            b"fields" => todo!(),
-            _ => return HTTPStatus::BadRequest.into(),
+            b"fields" => match fields.is_some() {
+                true => Err("Repeated field \"fields\"".into()),
+                false => ReservationFields::from_query_param(query_param.value())
+                    .map(|new_fields| {
+                        fields = Some(new_fields);
+                    })
+                    .map_err(|error| error.to_string().into()),
+            },
+            key => Err(format!(
+                "invalid query parameter \"{}\"",
+                String::from_utf8_lossy(key)
+            )
+            .into()),
+        } {
+            Ok(()) => {}
+            Err(error) => {
+                return HTTPResponse::new(
+                    HTTPStatus::BadRequest,
+                    json::to_bytes(&error).unwrap(),
+                    b"application/json",
+                )
+            }
         }
     }
 
@@ -58,7 +55,7 @@ pub(super) fn get<'a>(app: &LDHCPD, query_params: &[HTTPQueryParam]) -> HTTPResp
         &app.database,
         page.unwrap_or(0),
         page_size.unwrap_or(DEFAULT_RESERVATION_PAGE_SIZE),
-        order_by.unwrap_or((OrderBy::Ascending, ReservationField::ID)),
+        order_by.unwrap_or_default(),
         fields.unwrap_or(ReservationFields::new_true()),
     ) {
         Ok(reservations) => HTTPResponse::new(

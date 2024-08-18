@@ -5,13 +5,15 @@ use std::{path::Path, sync::Arc};
 
 mod error;
 mod order_by;
+mod unknown_field;
 
 mod page_size;
 mod reservation;
 mod scope;
 
 pub use error::DatabaseError;
-pub use order_by::OrderBy;
+pub use order_by::{OrderBy, OrderByDirection};
+pub use unknown_field::UnknownField;
 
 pub use reservation::*;
 pub use scope::*;

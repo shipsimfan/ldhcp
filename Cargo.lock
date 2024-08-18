@@ -72,7 +72,7 @@ dependencies = [
 [[package]]
 name = "huntsman"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/huntsman#98d66a4ab817dc7c7eb5484d03e1cfe87c0bf61f"
+source = "git+https://github.com/shipsimfan/huntsman#c220c97956d9c7f490194f04cc5591600a0e80c5"
 dependencies = [
  "lasync",
 ]
@@ -80,7 +80,7 @@ dependencies = [
 [[package]]
 name = "huntsman-http"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/huntsman#98d66a4ab817dc7c7eb5484d03e1cfe87c0bf61f"
+source = "git+https://github.com/shipsimfan/huntsman#c220c97956d9c7f490194f04cc5591600a0e80c5"
 dependencies = [
  "huntsman",
  "lasync",

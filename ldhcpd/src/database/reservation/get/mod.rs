@@ -21,7 +21,7 @@ pub fn get_many_reservations(
     db: &Database,
     page: usize,
     page_size: ReservationPageSize,
-    order_by: (OrderBy, ReservationField),
+    order_by: OrderBy<ReservationField>,
     fields: ReservationFields,
 ) -> Result<Vec<Reservation>, DatabaseError> {
     todo!()
