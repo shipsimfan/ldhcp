@@ -173,7 +173,7 @@ dependencies = [
 [[package]]
 name = "sql"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-sql#4390cfb1f8af033dd0d3d8e6d7ae6f4c6daea338"
+source = "git+https://github.com/shipsimfan/lib-sql#f3eeff6845d1f018d6a098202fc566c4c4981786"
 
 [[package]]
 name = "sql-migrations"
@@ -186,7 +186,7 @@ dependencies = [
 [[package]]
 name = "sqlite"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-sql#4390cfb1f8af033dd0d3d8e6d7ae6f4c6daea338"
+source = "git+https://github.com/shipsimfan/lib-sql#f3eeff6845d1f018d6a098202fc566c4c4981786"
 dependencies = [
  "sql",
  "sqlite3",

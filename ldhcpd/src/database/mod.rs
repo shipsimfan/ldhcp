@@ -3,6 +3,16 @@ use oak::{info, LogController, Logger};
 use sqlite::SQLite3Connection;
 use std::{path::Path, sync::Arc};
 
+mod error;
+
+mod reservation;
+mod scope;
+
+pub use error::DatabaseError;
+
+pub use reservation::*;
+pub use scope::*;
+
 /// The global storage for this server
 pub struct Database {
     /// The active connection

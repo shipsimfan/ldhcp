@@ -1,0 +1,1 @@
+INSERT INTO reservation (client_id, ip_address, description, renewal_time, scope) VALUES (?, ?, ?, ?, last_insert_rowid())
