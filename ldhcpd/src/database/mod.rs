@@ -4,11 +4,14 @@ use sqlite::SQLite3Connection;
 use std::{path::Path, sync::Arc};
 
 mod error;
+mod order_by;
 
+mod page_size;
 mod reservation;
 mod scope;
 
 pub use error::DatabaseError;
+pub use order_by::OrderBy;
 
 pub use reservation::*;
 pub use scope::*;

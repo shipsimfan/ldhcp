@@ -1,4 +1,5 @@
-use data_format::{Deserialize, DeserializeError};
+use data_format::{Deserialize, DeserializeError, Serialize};
+use sql::FromColumn;
 
 /// An identifier for a connecting client
 #[derive(Debug, PartialEq, Eq)]
@@ -14,6 +15,12 @@ impl ClientID {
     }
 }
 
+impl Serialize for ClientID {
+    fn serialize<S: data_format::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        self.0.serialize(serializer)
+    }
+}
+
 impl<'de> Deserialize<'de> for ClientID {
     fn deserialize<D: data_format::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let client_id = Vec::<u8>::deserialize(deserializer)?;
@@ -25,5 +32,11 @@ impl<'de> Deserialize<'de> for ClientID {
         } else {
             Ok(ClientID(client_id))
         }
+    }
+}
+
+impl FromColumn for ClientID {
+    fn from_column<'a, C: sql::Column<'a>>(column: C) -> Result<Self, C::Error> {
+        column.into_blob().map(|blob| ClientID(blob.to_vec()))
     }
 }

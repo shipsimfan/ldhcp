@@ -3,8 +3,13 @@ use sqlite::{SQLite3ExecuteError, SQLite3FromRowError, SQLiteError};
 /// An error that can occur while interacting with a database
 #[derive(Debug)]
 pub enum DatabaseError {
+    /// An error that occured while executing some SQL
     Execute(SQLite3ExecuteError),
+
+    /// An error that occured while preparing an SQL statement
     Prepare(SQLiteError),
+
+    /// An error while converting a result from a row
     FromRow(SQLite3FromRowError),
 }
 

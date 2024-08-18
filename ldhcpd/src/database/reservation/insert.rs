@@ -44,11 +44,13 @@ pub fn insert_reservation(
     statement.bind_blob(1, new_reservation.client_id.as_slice())?;
     statement.bind_u32(2, new_reservation.ip_address.to_bits())?;
 
-    if let Some(description) = &new_reservation.description {
-        statement.bind_str(3, description.as_str())
-    } else {
-        statement.bind_null(3)
-    }?;
+    statement.bind_str(
+        3,
+        match &new_reservation.description {
+            Some(description) => description.as_str(),
+            None => "",
+        },
+    )?;
 
     statement.bind_usize(
         4,

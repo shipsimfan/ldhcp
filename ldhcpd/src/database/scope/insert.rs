@@ -7,6 +7,7 @@ use sqlite::SQLite3Transaction;
 /// The SQL to insert a new scope
 const SQL: &str = include_str!("insert.sql");
 
+/// Inserts a new scope into the database
 pub fn insert_scope(
     logger: &Logger,
     transaction: &SQLite3Transaction,

@@ -1,4 +1,5 @@
-use data_format::{Deserialize, DeserializeError};
+use data_format::{Deserialize, DeserializeError, Serialize};
+use sql::FromColumn;
 use std::borrow::Cow;
 
 /// A description of an element
@@ -23,5 +24,19 @@ impl<'de> Deserialize<'de> for Description<'de> {
         }
 
         Ok(Description(description))
+    }
+}
+
+impl<'a> Serialize for Description<'a> {
+    fn serialize<S: data_format::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+        serializer.serialize_string(&self.0)
+    }
+}
+
+impl FromColumn for Description<'static> {
+    fn from_column<'a, C: sql::Column<'a>>(column: C) -> Result<Self, C::Error> {
+        column
+            .into_str()
+            .map(|description| Description(Cow::Owned(description.into())))
     }
 }
