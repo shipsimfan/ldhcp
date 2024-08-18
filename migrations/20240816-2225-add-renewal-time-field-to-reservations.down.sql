@@ -1,1 +1,0 @@
-ALTER TABLE reservation DROP renewal_time;

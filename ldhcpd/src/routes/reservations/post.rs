@@ -4,7 +4,7 @@ use net_utils::ip::v4::IPv4Address;
 use oak::info;
 use std::{borrow::Cow, num::NonZeroUsize};
 
-use crate::LDHCPD;
+use crate::{util::validate_body, LDHCPD};
 
 /// A new reservation requested to be made by a client
 #[derive(Deserialize, Debug)]
@@ -24,29 +24,9 @@ struct NewReservation<'a> {
 
 /// Creates a new reservation based on the provided body
 pub(super) fn post<'a>(app: &LDHCPD, request: &HTTPRequest) -> HTTPResponse<'a> {
-    let body = match request.body() {
-        Some(body) => body,
-        None => return HTTPStatus::BadRequest.into(),
-    };
-
-    if body.len() == 0
-        || request
-            .field(b"Content-Type")
-            .map(|content_type| content_type.value() != b"application/json")
-            .unwrap_or(true)
-    {
-        return HTTPStatus::BadRequest.into();
-    }
-
-    let reservation = match json::from_bytes::<NewReservation>(body) {
+    let reservation = match validate_body::<NewReservation>(request) {
         Ok(reservation) => reservation,
-        Err(error) => {
-            return HTTPResponse::new(
-                HTTPStatus::BadRequest,
-                json::to_bytes(&error.to_string()).unwrap(),
-                b"application/json",
-            );
-        }
+        Err(response) => return response,
     };
 
     info!(

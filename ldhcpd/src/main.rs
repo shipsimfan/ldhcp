@@ -9,6 +9,7 @@ mod args;
 mod database;
 mod new;
 mod routes;
+mod util;
 
 /// The LDHCP Server
 struct LDHCPD {

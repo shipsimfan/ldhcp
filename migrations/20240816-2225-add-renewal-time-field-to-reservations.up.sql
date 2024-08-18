@@ -1,1 +1,0 @@
-ALTER TABLE reservation ADD renewal_time INTEGER NOT NULL;
