@@ -1,15 +1,8 @@
-use crate::{
-    database::{page_size::PageSize, DatabaseError, OrderBy},
-    model::{ClientID, Description},
-};
+use crate::model::{ClientID, Description};
 use data_format::{MapSerializer, Serialize};
 use net_utils::ip::v4::IPv4Address;
 use sql::{Column, FromColumn, FromRow};
-use sqlite::SQLite3Connection;
 use std::num::NonZeroUsize;
-
-/// A size of a requested reservation page
-pub type ReservationPageSize = PageSize<100>;
 
 /// A reservation to be read from the database
 pub struct Reservation {
@@ -19,54 +12,6 @@ pub struct Reservation {
     renewal_time: Option<Option<NonZeroUsize>>,
     description: Option<Option<Description<'static>>>,
     scope: Option<usize>,
-}
-
-/// The fields to select from the database
-pub struct ReservationFields {
-    id: bool,
-    client_id: bool,
-    ip_address: bool,
-    renewal_time: bool,
-    description: bool,
-    scope: bool,
-}
-
-/// A field to order selection by
-pub enum ReservationField {
-    ID,
-    ClientID,
-    IPAddress,
-    RenewalTime,
-    Description,
-    Scope,
-}
-
-/// The default [`ReservationPageSize`] if none is provided
-const DEFAULT_PAGE_SIZE: ReservationPageSize =
-    unsafe { ReservationPageSize::new_unchecked(NonZeroUsize::new_unchecked(25)) };
-
-/// Gets a set of reservations matching the provided parameters
-pub fn get_many_reservations(
-    db: &SQLite3Connection,
-    page: usize,
-    page_size: Option<ReservationPageSize>,
-    order_by: Option<(OrderBy, ReservationField)>,
-    fields: Option<ReservationFields>,
-) -> Result<Vec<Reservation>, DatabaseError> {
-    let page_size = page_size.unwrap_or(DEFAULT_PAGE_SIZE);
-    let (order_by, order_by_field) = order_by.unwrap_or((OrderBy::Ascending, ReservationField::ID));
-    let fields = fields.unwrap_or(ReservationFields::new_true());
-
-    todo!()
-}
-
-/// Gets a reservation from the database
-pub fn get_reservation(
-    db: &SQLite3Connection,
-    id: usize,
-    fields: ReservationFields,
-) -> Result<Reservation, DatabaseError> {
-    todo!()
 }
 
 impl Serialize for Reservation {
@@ -146,31 +91,5 @@ impl FromRow for Reservation {
             description,
             scope,
         })
-    }
-}
-
-impl ReservationFields {
-    /// Creates a new [`ReservationFields`] containing all fields
-    pub fn new_true() -> Self {
-        ReservationFields {
-            id: true,
-            client_id: true,
-            ip_address: true,
-            renewal_time: true,
-            description: true,
-            scope: true,
-        }
-    }
-
-    /// Creates a new [`ReservationFields`] containing no fields
-    pub fn new_false() -> Self {
-        ReservationFields {
-            id: false,
-            client_id: false,
-            ip_address: false,
-            renewal_time: false,
-            description: false,
-            scope: false,
-        }
     }
 }
