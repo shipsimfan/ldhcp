@@ -1,22 +1,25 @@
+use crate::{
+    model::{ClientID, Description},
+    util::validate_body,
+    LDHCPD,
+};
 use data_format::Deserialize;
 use huntsman_http::{HTTPRequest, HTTPResponse, HTTPStatus};
 use net_utils::ip::v4::IPv4Address;
 use oak::info;
-use std::{borrow::Cow, num::NonZeroUsize};
-
-use crate::{util::validate_body, LDHCPD};
+use std::num::NonZeroUsize;
 
 /// A new reservation requested to be made by a client
 #[derive(Deserialize, Debug)]
 struct NewReservation<'a> {
     /// The id of the client device this reservation is for
-    client_id: Vec<u8>,
+    client_id: ClientID,
 
     /// The ip address to be assigned to the client device
     ip_address: IPv4Address,
 
     /// A description of this reservation
-    description: Option<Cow<'a, str>>,
+    description: Option<Description<'a>>,
 
     /// The length of time a client can hold a reservation before renewing
     renewal_time: Option<NonZeroUsize>,

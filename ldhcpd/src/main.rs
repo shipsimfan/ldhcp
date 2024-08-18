@@ -7,6 +7,7 @@ use std::sync::Arc;
 mod app;
 mod args;
 mod database;
+mod model;
 mod new;
 mod routes;
 mod util;
