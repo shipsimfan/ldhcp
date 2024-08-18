@@ -27,11 +27,11 @@ pub struct NewReservation<'a> {
 /// The SQL to insert a new reservation
 const SQL: &str = include_str!("insert.sql");
 
-/// Inserts a [`NewReservation`] into the database
+/// Inserts a [`NewReservation`] into the database, returning it's id
 pub fn insert_reservation(
     database: &Database,
     new_reservation: NewReservation,
-) -> Result<(), DatabaseError> {
+) -> Result<usize, DatabaseError> {
     info!(database.logger, "Inserting new reservation");
 
     let transaction = database.connection.begin_trasaction()?;
@@ -59,5 +59,8 @@ pub fn insert_reservation(
     )?;
 
     statement.execute()?;
-    Ok(transaction.commit()?)
+    let id = transaction.last_insert_id().unwrap();
+
+    transaction.commit()?;
+    Ok(id)
 }

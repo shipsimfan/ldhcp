@@ -16,7 +16,11 @@ pub(super) fn post<'a>(app: &LDHCPD, request: &HTTPRequest) -> HTTPResponse<'a> 
     info!(app.updates_logger, "Creating new reservation");
 
     match database::insert_reservation(&app.database, reservation) {
-        Ok(()) => HTTPStatus::OK.into(),
+        Ok(row_id) => HTTPResponse::new(
+            HTTPStatus::OK,
+            json::to_bytes(&row_id).unwrap(),
+            b"application/json",
+        ),
         Err(error) => HTTPResponse::new(
             HTTPStatus::InternalServerError,
             json::to_bytes(&error.to_string()).unwrap(),

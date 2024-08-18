@@ -1,7 +1,8 @@
 --- Creates the "reservation" table
 
 CREATE TABLE reservation (
-    client_id VARCHAR(256) NOT NULL PRIMARY KEY,
+    id INTEGER PRIMARY KEY,
+    client_id VARCHAR(256) NOT NULL UNIQUE,
     ip_address INTEGER NOT NULL,
     scope INTEGER NOT NULL UNIQUE,
     renewal_time INTEGER NOT NULL,

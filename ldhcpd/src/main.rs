@@ -15,6 +15,7 @@ mod util;
 /// The LDHCP Server
 struct LDHCPD {
     /// The log controller for the server
+    #[allow(unused)]
     log_controller: Arc<LogController>,
 
     /// The database storing information for the server
