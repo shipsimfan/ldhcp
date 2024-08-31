@@ -13,12 +13,12 @@ dependencies = [
 [[package]]
 name = "base"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-proc-macro-util#466265c30de3e57aa0365bac5e4de4e54bee56c3"
+source = "git+https://github.com/shipsimfan/lib-proc-macro-util#96d17ea81a30756951f75f3a591132e870a90707"
 
 [[package]]
 name = "data-format"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-data-format#e240ff5f7e2adae43840ae00a94da5580fc26453"
+source = "git+https://github.com/shipsimfan/lib-data-format#4ba66610ad892aadab8d7d084ca8cad82a3a5d35"
 dependencies = [
  "macros 0.1.0 (git+https://github.com/shipsimfan/lib-data-format)",
 ]
@@ -89,7 +89,7 @@ dependencies = [
 [[package]]
 name = "json"
 version = "2.0.0"
-source = "git+https://github.com/shipsimfan/lib-json?branch=lib-data-format#23c5fdf28a477739dab3bb1dffe375fa26bdb195"
+source = "git+https://github.com/shipsimfan/lib-json?branch=lib-data-format#32fb4aa70a7aa8adb15b051700056666d8a64aaf"
 dependencies = [
  "data-format",
 ]
@@ -108,12 +108,11 @@ name = "ldhcpd"
 version = "0.1.0"
 dependencies = [
  "argparse",
- "data-format",
  "huntsman",
  "huntsman-http",
- "json",
  "net-utils",
  "oak",
+ "router",
  "sql",
  "sql-migrations",
  "sqlite",
@@ -127,7 +126,7 @@ source = "git+https://github.com/shipsimfan/lib-linux#dd77885b4300058bbf465d8d5c
 [[package]]
 name = "macros"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-data-format#e240ff5f7e2adae43840ae00a94da5580fc26453"
+source = "git+https://github.com/shipsimfan/lib-data-format#4ba66610ad892aadab8d7d084ca8cad82a3a5d35"
 dependencies = [
  "proc-macro-util",
 ]
@@ -135,7 +134,7 @@ dependencies = [
 [[package]]
 name = "macros"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-proc-macro-util#466265c30de3e57aa0365bac5e4de4e54bee56c3"
+source = "git+https://github.com/shipsimfan/lib-proc-macro-util#96d17ea81a30756951f75f3a591132e870a90707"
 dependencies = [
  "base",
 ]
@@ -164,10 +163,29 @@ dependencies = [
 [[package]]
 name = "proc-macro-util"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-proc-macro-util#466265c30de3e57aa0365bac5e4de4e54bee56c3"
+source = "git+https://github.com/shipsimfan/lib-proc-macro-util#96d17ea81a30756951f75f3a591132e870a90707"
 dependencies = [
  "base",
  "macros 0.1.0 (git+https://github.com/shipsimfan/lib-proc-macro-util)",
+]
+
+[[package]]
+name = "router"
+version = "0.0.0"
+source = "git+https://github.com/shipsimfan/lib-router#03e4b3184b2521219abf7cd65d15a93cfff35382"
+dependencies = [
+ "data-format",
+ "huntsman-http",
+ "json",
+ "router-macros",
+]
+
+[[package]]
+name = "router-macros"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/lib-router#03e4b3184b2521219abf7cd65d15a93cfff35382"
+dependencies = [
+ "proc-macro-util",
 ]
 
 [[package]]

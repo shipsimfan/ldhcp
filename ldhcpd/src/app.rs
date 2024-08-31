@@ -37,8 +37,8 @@ impl huntsman::App for LDHCPD {
         client: &'a mut Self::Client,
         request: <Self::Protocol as huntsman::Protocol>::Request<'b>,
     ) -> <Self::Protocol as huntsman::Protocol>::Response<'a> {
-        let path = HTTPPath::parse(request.target());
-        let response = routes::route(self, &request, path, 0);
+        let path = HTTPPath::<'b>::parse(request.target());
+        let response = routes::route(self, (), &request, &path, 0);
 
         info!(
             self.request_logger,

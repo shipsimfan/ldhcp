@@ -8,15 +8,6 @@ mod order_by;
 mod unknown_field;
 
 mod page_size;
-mod reservation;
-mod scope;
-
-pub use error::DatabaseError;
-pub use order_by::{OrderBy, OrderByDirection};
-pub use unknown_field::UnknownField;
-
-pub use reservation::*;
-pub use scope::*;
 
 /// The global storage for this server
 pub struct Database {

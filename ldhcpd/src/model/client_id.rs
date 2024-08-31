@@ -1,5 +1,5 @@
-use data_format::{Deserialize, DeserializeError, Serialize};
-use sql::FromColumn;
+use router::data_format::{Deserialize, DeserializeError, Deserializer, Serialize, Serializer};
+use sql::{Column, FromColumn};
 
 /// An identifier for a connecting client
 #[derive(Debug, PartialEq, Eq)]
@@ -16,13 +16,13 @@ impl ClientID {
 }
 
 impl Serialize for ClientID {
-    fn serialize<S: data_format::Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
+    fn serialize<S: Serializer>(&self, serializer: S) -> Result<S::Ok, S::Error> {
         self.0.serialize(serializer)
     }
 }
 
 impl<'de> Deserialize<'de> for ClientID {
-    fn deserialize<D: data_format::Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
+    fn deserialize<D: Deserializer<'de>>(deserializer: D) -> Result<Self, D::Error> {
         let client_id = Vec::<u8>::deserialize(deserializer)?;
 
         if client_id.len() > MAX_CLIENT_ID_LENGTH {
@@ -36,7 +36,7 @@ impl<'de> Deserialize<'de> for ClientID {
 }
 
 impl FromColumn for ClientID {
-    fn from_column<'a, C: sql::Column<'a>>(column: C) -> Result<Self, C::Error> {
+    fn from_column<'a, C: Column<'a>>(column: C) -> Result<Self, C::Error> {
         column.into_blob().map(|blob| ClientID(blob.to_vec()))
     }
 }
