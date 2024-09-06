@@ -1,5 +1,7 @@
-use router::data_format::{Deserialize, DeserializeError, Deserializer, Serialize, Serializer};
-use sql::{Column, FromColumn};
+use router::{
+    data_format::{Deserialize, DeserializeError, Deserializer, Serialize, Serializer},
+    sql::{Bind, Column, FromColumn},
+};
 
 /// An identifier for a connecting client
 #[derive(Debug, PartialEq, Eq)]
@@ -38,5 +40,15 @@ impl<'de> Deserialize<'de> for ClientID {
 impl FromColumn for ClientID {
     fn from_column<'a, C: Column<'a>>(column: C) -> Result<Self, C::Error> {
         column.into_blob().map(|blob| ClientID(blob.to_vec()))
+    }
+}
+
+impl Bind for ClientID {
+    fn bind<'a, S: router::sql::Statement<'a>>(
+        &'a self,
+        idx: usize,
+        statement: &mut S,
+    ) -> Result<(), S::BindError> {
+        statement.bind(idx, &self.0)
     }
 }

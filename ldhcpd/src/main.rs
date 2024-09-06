@@ -1,49 +1,34 @@
-use args::LDHCPOptions;
-use database::Database;
-use new::CreationError;
-use oak::{LogController, Logger};
+use router::{
+    oak::{LogController, Logger},
+    sqlite::SQLite3Connection,
+};
 use std::sync::Arc;
 
-mod app;
 mod args;
-mod database;
-mod model;
-mod new;
+mod common;
 mod routes;
 
 /// The LDHCP Server
 struct LDHCPD {
-    /// The log controller for the server
-    #[allow(unused)]
-    log_controller: Arc<LogController>,
-
-    /// The database storing information for the server
-    database: Database,
-
-    /// The logger for initialization
-    init_logger: Logger,
-
-    /// The logger for connections
-    connection_logger: Logger,
-
-    /// The logger for requests
-    request_logger: Logger,
-
-    /// The logger for updates to the system
-    updates_logger: Logger,
-
-    /// Should request headers be logged?
-    log_headers: bool,
-
-    /// Should request bodies be logged?
-    log_bodies: bool,
-
-    /// Should response codes and paths be logged?
-    log_reponses: bool,
+    database: SQLite3Connection,
+    updates: Logger,
 }
 
-fn main() {
-    if let Err(_) = new::run() {
-        std::process::exit(1);
+router::router_main!(args::PARSER, routes::route);
+
+impl router::Service for LDHCPD {
+    type Error = std::convert::Infallible;
+    type Options = args::Options;
+
+    const RESOURCE: &str = "ldhcpd";
+
+    fn new(
+        _: args::Options,
+        log_controller: &Arc<LogController>,
+        database: SQLite3Connection,
+    ) -> Result<Self, Self::Error> {
+        let updates = log_controller.create_logger("updates");
+
+        Ok(LDHCPD { database, updates })
     }
 }

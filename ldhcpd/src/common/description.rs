@@ -1,5 +1,7 @@
-use router::data_format::{Deserialize, DeserializeError, Deserializer, Serialize, Serializer};
-use sql::{Column, FromColumn};
+use router::{
+    data_format::{Deserialize, DeserializeError, Deserializer, Serialize, Serializer},
+    sql::{Bind, Column, FromColumn},
+};
 use std::borrow::Cow;
 
 /// A description of an element
@@ -38,5 +40,15 @@ impl FromColumn for Description<'static> {
         column
             .into_str()
             .map(|description| Description(Cow::Owned(description.into())))
+    }
+}
+
+impl<'a> Bind for Description<'a> {
+    fn bind<'b, S: router::sql::Statement<'b>>(
+        &'b self,
+        idx: usize,
+        statement: &mut S,
+    ) -> Result<(), S::BindError> {
+        statement.bind_str(idx, &self.0)
     }
 }

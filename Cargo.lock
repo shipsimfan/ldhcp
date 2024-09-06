@@ -13,12 +13,12 @@ dependencies = [
 [[package]]
 name = "base"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-proc-macro-util#96d17ea81a30756951f75f3a591132e870a90707"
+source = "git+https://github.com/shipsimfan/lib-proc-macro-util#a53a2707afda41796e3395b21c164337212c7ad9"
 
 [[package]]
 name = "data-format"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-data-format#4ba66610ad892aadab8d7d084ca8cad82a3a5d35"
+source = "git+https://github.com/shipsimfan/lib-data-format#636df0ef153e92debfd2218c066e328755579bd5"
 dependencies = [
  "macros 0.1.0 (git+https://github.com/shipsimfan/lib-data-format)",
 ]
@@ -26,7 +26,7 @@ dependencies = [
 [[package]]
 name = "executor"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
+source = "git+https://github.com/shipsimfan/lib-lasync#3707fd54d92e1154c722168f921d6c93ca74d5d0"
 dependencies = [
  "executor-common",
  "executor-linux",
@@ -35,12 +35,12 @@ dependencies = [
 [[package]]
 name = "executor-common"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
+source = "git+https://github.com/shipsimfan/lib-lasync#3707fd54d92e1154c722168f921d6c93ca74d5d0"
 
 [[package]]
 name = "executor-linux"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
+source = "git+https://github.com/shipsimfan/lib-lasync#3707fd54d92e1154c722168f921d6c93ca74d5d0"
 dependencies = [
  "executor-common",
  "uring",
@@ -49,7 +49,7 @@ dependencies = [
 [[package]]
 name = "futures"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
+source = "git+https://github.com/shipsimfan/lib-lasync#3707fd54d92e1154c722168f921d6c93ca74d5d0"
 dependencies = [
  "futures-common",
  "futures-linux",
@@ -58,12 +58,12 @@ dependencies = [
 [[package]]
 name = "futures-common"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
+source = "git+https://github.com/shipsimfan/lib-lasync#3707fd54d92e1154c722168f921d6c93ca74d5d0"
 
 [[package]]
 name = "futures-linux"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
+source = "git+https://github.com/shipsimfan/lib-lasync#3707fd54d92e1154c722168f921d6c93ca74d5d0"
 dependencies = [
  "executor",
  "futures-common",
@@ -72,7 +72,7 @@ dependencies = [
 [[package]]
 name = "huntsman"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/huntsman#c220c97956d9c7f490194f04cc5591600a0e80c5"
+source = "git+https://github.com/shipsimfan/huntsman#0dcbd3218cf12ce79c051b3a5c94197d4763b005"
 dependencies = [
  "lasync",
 ]
@@ -80,7 +80,7 @@ dependencies = [
 [[package]]
 name = "huntsman-http"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/huntsman#c220c97956d9c7f490194f04cc5591600a0e80c5"
+source = "git+https://github.com/shipsimfan/huntsman#0dcbd3218cf12ce79c051b3a5c94197d4763b005"
 dependencies = [
  "huntsman",
  "lasync",
@@ -89,7 +89,7 @@ dependencies = [
 [[package]]
 name = "json"
 version = "2.0.0"
-source = "git+https://github.com/shipsimfan/lib-json?branch=lib-data-format#32fb4aa70a7aa8adb15b051700056666d8a64aaf"
+source = "git+https://github.com/shipsimfan/lib-json?branch=lib-data-format#d394a5fbe13309e486f1e5c5db726f9e51974811"
 dependencies = [
  "data-format",
 ]
@@ -97,7 +97,7 @@ dependencies = [
 [[package]]
 name = "lasync"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-lasync#795855098861ee89081fbf7903f7389c6bde913e"
+source = "git+https://github.com/shipsimfan/lib-lasync#3707fd54d92e1154c722168f921d6c93ca74d5d0"
 dependencies = [
  "executor",
  "futures",
@@ -108,14 +108,9 @@ name = "ldhcpd"
 version = "0.1.0"
 dependencies = [
  "argparse",
- "huntsman",
- "huntsman-http",
+ "data-format",
  "net-utils",
- "oak",
  "router",
- "sql",
- "sql-migrations",
- "sqlite",
 ]
 
 [[package]]
@@ -126,7 +121,7 @@ source = "git+https://github.com/shipsimfan/lib-linux#dd77885b4300058bbf465d8d5c
 [[package]]
 name = "macros"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-data-format#4ba66610ad892aadab8d7d084ca8cad82a3a5d35"
+source = "git+https://github.com/shipsimfan/lib-data-format#636df0ef153e92debfd2218c066e328755579bd5"
 dependencies = [
  "proc-macro-util",
 ]
@@ -134,7 +129,7 @@ dependencies = [
 [[package]]
 name = "macros"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-proc-macro-util#96d17ea81a30756951f75f3a591132e870a90707"
+source = "git+https://github.com/shipsimfan/lib-proc-macro-util#a53a2707afda41796e3395b21c164337212c7ad9"
 dependencies = [
  "base",
 ]
@@ -155,7 +150,7 @@ source = "git+https://github.com/shipsimfan/lib-net-utils#9230abc09298abe7a2cbfe
 [[package]]
 name = "oak"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/oak#82fb82df78e87350fe0c83d4d6f5274b3dfdf8b3"
+source = "git+https://github.com/shipsimfan/oak#dcbb507df4563f23aaa987a3a383b988d9e85201"
 dependencies = [
  "time",
 ]
@@ -163,7 +158,7 @@ dependencies = [
 [[package]]
 name = "proc-macro-util"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-proc-macro-util#96d17ea81a30756951f75f3a591132e870a90707"
+source = "git+https://github.com/shipsimfan/lib-proc-macro-util#a53a2707afda41796e3395b21c164337212c7ad9"
 dependencies = [
  "base",
  "macros 0.1.0 (git+https://github.com/shipsimfan/lib-proc-macro-util)",
@@ -171,19 +166,25 @@ dependencies = [
 
 [[package]]
 name = "router"
-version = "0.0.0"
-source = "git+https://github.com/shipsimfan/lib-router#03e4b3184b2521219abf7cd65d15a93cfff35382"
+version = "0.1.0"
+source = "git+https://github.com/shipsimfan/lib-router#1ed2caacb418e324c1e0100007cef5cbb0903f4a"
 dependencies = [
+ "argparse",
  "data-format",
+ "huntsman",
  "huntsman-http",
  "json",
+ "oak",
  "router-macros",
+ "sql",
+ "sql-migrations",
+ "sqlite",
 ]
 
 [[package]]
 name = "router-macros"
 version = "0.1.0"
-source = "git+https://github.com/shipsimfan/lib-router#03e4b3184b2521219abf7cd65d15a93cfff35382"
+source = "git+https://github.com/shipsimfan/lib-router#1ed2caacb418e324c1e0100007cef5cbb0903f4a"
 dependencies = [
  "proc-macro-util",
 ]

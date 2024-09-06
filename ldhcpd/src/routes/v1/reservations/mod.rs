@@ -2,4 +2,4 @@ use crate::LDHCPD;
 
 mod post;
 
-router::router!(pub route, &'b LDHCPD, (), [POST => post::post], [], []);
+router::router!(pub route, LDHCPD, (), [POST => post::post], [], []);

@@ -10,16 +10,10 @@ license.workspace = true
 publish.workspace = true
 
 [dependencies]
-huntsman.git = "https://github.com/shipsimfan/huntsman"
-huntsman-http.git = "https://github.com/shipsimfan/huntsman"
-
-sql.git = "https://github.com/shipsimfan/lib-sql"
-sqlite.git = "https://github.com/shipsimfan/lib-sql"
-sql-migrations.git = "https://github.com/shipsimfan/lib-sql-migrations"
+argparse.git = "https://github.com/shipsimfan/lib-argparse"
+data-format.git = "https://github.com/shipsimfan/lib-data-format"
+router = { git = "https://github.com/shipsimfan/lib-router", features = [
+    "sqlite",
+] }
 
 net-utils.git = "https://github.com/shipsimfan/lib-net-utils"
-
-argparse.git = "https://github.com/shipsimfan/lib-argparse"
-oak.git = "https://github.com/shipsimfan/oak"
-
-router.git = "https://github.com/shipsimfan/lib-router"
