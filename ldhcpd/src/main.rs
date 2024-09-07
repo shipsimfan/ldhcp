@@ -5,7 +5,7 @@ use router::{
 use std::sync::Arc;
 
 mod args;
-mod common;
+mod model;
 mod routes;
 
 /// The LDHCP Server

@@ -1,0 +1,1 @@
+INSERT INTO reservation (client_id, ip_address, scope, renewal_time, description) VALUES (?, ?, ?, ?, ?)

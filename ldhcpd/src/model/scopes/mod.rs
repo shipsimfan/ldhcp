@@ -1,4 +1,4 @@
-//! Interaction functions for scopes
+//! Database interaction functions for scopes
 
 mod new;
 mod r#type;

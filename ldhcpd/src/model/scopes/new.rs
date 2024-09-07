@@ -1,5 +1,5 @@
 use super::r#type::ScopeType;
-use crate::common::SQLTransactionError;
+use crate::model::SQLTransactionError;
 use router::{
     sql::{Statement, Transaction},
     sqlite::SQLite3Transaction,
